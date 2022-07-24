@@ -81,7 +81,7 @@
     align-items: center;
 }
 
-.enter {
+.zero {
     border: blue 1px solid;
     height: 50px;;
     width: 115px;
@@ -95,6 +95,16 @@
     border: blue 1px solid;
     height: 50px;;
     width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+}
+
+.enter {
+    border: blue 1px solid;
+    height: 50px;;
+    width: 180px;
     display: flex;
     justify-content: center;
     align-items: center;
