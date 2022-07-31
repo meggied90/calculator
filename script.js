@@ -43,7 +43,11 @@ function operate(num1, num2) {
         answer = num1 * num2;
     };
     if (operation === "divide") {
+        if (num2 = 0) {
+            answer = "That's illegal!"
+        } else {
         answer = num1 / num2;
+        }
     };
     return answer;
 }
