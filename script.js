@@ -1,12 +1,28 @@
 var number = ""
 var num1 = null
 var num2 = null
+var previousNum2 = null
 var operation = ""
 var answerGiven = false
 
+var clearCounter = 0
+function clearNumber() {
+    buttonSubmit.repeatFunction = false
+    if (number === "" || clearCounter === 1) {
+        num1 = null;
+        num2 = null;
+        clearCounter = 0;
+    };
+    number = "";
+    clearCounter++;
+    document.getElementById("display").innerHTML = 0;
+}
+
 function writeNumber(event) {
+    buttonSubmit.repeatFunction = false
     if (answerGiven) {
         num1 = null;
+        num2 = null
         number = "";
         answerGiven = false;
     }
@@ -14,36 +30,7 @@ function writeNumber(event) {
     document.getElementById("display").innerHTML = number;
 };
 
-function clearNumber() {
-    if (number === "" || answerGiven) {
-        num1 = null;
-        num2 = null;
-    };
-    number = "";
-    document.getElementById("display").innerHTML = 0;
-    answerGiven = false
-}
-
-function enterNumber(event) {
-    num2 = null
-    operation = event.currentTarget.param
-    num1 = Number(number)
-    number = ""
-    answerGiven = false
-}
-
-var submitNumbers = function submitNumbers() {
-    if (answerGiven === false) {
-        num2 = Number(number)
-    }
-    let answer = operate()
-    document.getElementById("display").innerHTML = answer
-    num1 = answer
-    number = String(answer)
-    answerGiven = true
-}
-
-function operate() {
+function operate(num1, num2) {
     if (operation === "add") {
         answer = num1 + num2;
     };
@@ -57,6 +44,32 @@ function operate() {
         answer = num1 / num2;
     };
     return answer;
+}
+
+function addOperator(event) {
+    buttonSubmit.repeatFunction = false
+    submitForCalculation()
+    operation = event.currentTarget.param
+}
+
+function submitForCalculation() {
+    if (num1 !== null) {
+        if (buttonSubmit.repeatFunction) {
+            num2 = previousNum2;
+        } else {
+            num2 = Number(number);
+        }
+        let answer = operate(num1, num2);
+        document.getElementById("display").innerHTML = answer;
+        num1 = answer;
+        number = "";
+        previousNum2 = num2;
+        num2 = null;
+        answerGiven = true;
+    } else {
+        num1 = Number(number);
+        number = "";
+    }
 }
 
 var buttonOne = document.getElementById('1')
@@ -103,23 +116,46 @@ var buttonClear = document.getElementById("clear")
 buttonClear.addEventListener('click', clearNumber)
 
 var buttonAdd = document.getElementById("add")
-buttonAdd.addEventListener('click', enterNumber, false)
+buttonAdd.addEventListener('click', (e) => {
+    addOperator(e);
+    toggleAnswerGiven();
+}, false)
 buttonAdd.param = "add"
 
 var buttonSubtract = document.getElementById("subtract")
-buttonSubtract.addEventListener('click', enterNumber, false)
+buttonSubtract.addEventListener('click', (e) => {
+    addOperator(e);
+    toggleAnswerGiven();
+}, false)
 buttonSubtract.param = "subtract"
 
 var buttonMultiply = document.getElementById("multiply")
-buttonMultiply.addEventListener('click', enterNumber, false)
+buttonMultiply.addEventListener('click', (e) => {
+    addOperator(e);
+    toggleAnswerGiven();;
+}, false)
 buttonMultiply.param = "multiply"
 
 var buttonDivide = document.getElementById("divide")
-buttonDivide.addEventListener('click', enterNumber, false)
+buttonDivide.addEventListener('click', (e) => {
+    addOperator(e);
+    toggleAnswerGiven();
+}, false)
 buttonDivide.param = "divide"
 
+function toggleAnswerGiven() {
+    answerGiven = false
+}
+
 var buttonSubmit = document.getElementById("enter")
-buttonSubmit.addEventListener('click', submitNumbers, false)
+buttonSubmit.addEventListener('click',  () => {
+    submitForCalculation();
+    hitSubmit();
+}, false)
+
+function hitSubmit() {
+    buttonSubmit.repeatFunction = true
+}
 
 var buttonDecimal = document.getElementById("decimal")
 buttonDecimal.addEventListener('click', writeNumber, false)
