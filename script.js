@@ -120,3 +120,7 @@ buttonDivide.param = "divide"
 
 var buttonSubmit = document.getElementById("enter")
 buttonSubmit.addEventListener('click', submitNumbers, false)
+
+var buttonDecimal = document.getElementById("decimal")
+buttonDecimal.addEventListener('click', writeNumber, false)
+buttonDecimal.param = '.'
