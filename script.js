@@ -35,20 +35,22 @@ function writeNumber(event) {
 function operate(num1, num2) {
     if (operation === "add") {
         answer = num1 + num2;
-    };
-    if (operation === "subtract") {
+    }
+    else if (operation === "subtract") {
         answer = num1 - num2;
-    };
-    if (operation === "multiply") {
+    }
+    else if (operation === "multiply") {
         answer = num1 * num2;
-    };
-    if (operation === "divide") {
+    }
+    else if (operation === "divide") {
         if (num2 = 0) {
             answer = "That's illegal!"
         } else {
         answer = num1 / num2;
         }
-    };
+    } else {
+        answer = num1;
+    }
     return answer;
 }
 
@@ -59,7 +61,7 @@ function addOperator(event) {
 }
 
 function submitForCalculation() {
-    if (num1 !== null) {
+        if (num1 !== null) {
         if (buttonSubmit.repeatFunction) {
             num2 = previousNum2;
         } else {
