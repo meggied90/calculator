@@ -26,7 +26,9 @@ function writeNumber(event) {
         number = "";
         answerGiven = false;
     }
-    number = number + event.currentTarget.param;
+    if (number.length < 16) {
+        number = number + event.currentTarget.param;
+    }
     document.getElementById("display").innerHTML = number;
 };
 
@@ -59,7 +61,7 @@ function submitForCalculation() {
         } else {
             num2 = Number(number);
         }
-        let answer = operate(num1, num2);
+        let answer = validateAnswerLength(operate(num1, num2));
         document.getElementById("display").innerHTML = answer;
         num1 = answer;
         number = "";
@@ -69,6 +71,21 @@ function submitForCalculation() {
     } else {
         num1 = Number(number);
         number = "";
+    }
+}
+
+function validateAnswerLength(answer) {
+    if (answer.length > 16) {
+        indexDec = answer.indexOf('.')
+        if (indexDec < 0 || indexDec > 16) {
+            return "ERR: answer too large"
+        } else {
+            roundLength = 15 - indexDec
+            answer = parseFloat(answer).toFixed(roundLength)
+            return answer
+        }
+    } else {
+        return answer
     }
 }
 
