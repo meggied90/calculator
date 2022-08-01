@@ -27,7 +27,7 @@ function writeNumber(event) {
         answerGiven = false;
     }
     if (number.length < 16) {
-        number = number + event.currentTarget.param;
+        number = number + event.target.param;
     }
     document.getElementById("display").innerHTML = number;
 };
@@ -57,7 +57,7 @@ function operate(num1, num2) {
 function addOperator(event) {
     buttonSubmit.repeatFunction = false
     submitForCalculation()
-    operation = event.currentTarget.param
+    operation = event.target.param
 }
 
 function submitForCalculation() {
@@ -94,6 +94,44 @@ function validateAnswerLength(answer) {
         return answer
     }
 }
+
+document.addEventListener('keydown', 
+    (e) => {
+        if (e.key == 1) {
+            buttonOne.dispatchEvent(new MouseEvent("click"));
+        } else if (e.key == 2) {
+            buttonTwo.dispatchEvent(new MouseEvent("click"))
+        } else if (e.key == 3) {
+            buttonThree.dispatchEvent(new MouseEvent("click"))
+        } else if (e.key == 4) {
+            buttonFour.dispatchEvent(new MouseEvent("click"))
+        } else if (e.key == 5) {
+            buttonFive.dispatchEvent(new MouseEvent("click"))
+        } else if (e.key == 6) {
+            buttonSix.dispatchEvent(new MouseEvent("click"))
+        } else if (e.key == 7) {
+            buttonSeven.dispatchEvent(new MouseEvent("click"))
+        } else if (e.key == 8) {
+            buttonEight.dispatchEvent(new MouseEvent("click"))
+        } else if (e.key == 9) {
+            buttonNine.dispatchEvent(new MouseEvent("click"))
+        } else if (e.key == 0) {
+            buttonZero.dispatchEvent(new MouseEvent("click"))
+        } else if (e.key == '.') {
+            buttonDecimal.dispatchEvent(new MouseEvent("click"))
+        } else if (e.key == '+') {
+            buttonAdd.dispatchEvent(new MouseEvent("click"))
+        } else if (e.key == '-') {
+            buttonSubtract.dispatchEvent(new MouseEvent("click"))
+        } else if (e.key == '*') {
+            buttonMultiply.dispatchEvent(new MouseEvent("click"))
+        } else if (e.key == '/') {
+            buttonDivide.dispatchEvent(new MouseEvent("click"))
+        } else if (e.key == 'Enter') {
+            buttonSubmit.dispatchEvent(new MouseEvent("click"))
+        }
+    }, 
+    false)
 
 var buttonOne = document.getElementById('1')
 buttonOne.addEventListener('click', writeNumber, false)
